@@ -45,6 +45,12 @@ class ServerlessDeleteLoggroups {
     _.forEach(this.serverless.service.functions, (value, key) => {
       logGroupNames.push(`/aws/lambda/${value.name}`);
     });
+    const extraGroups = _.get(this.serverless.service, 'custom.loggroups.extra');
+    if (extraGroups) {
+      this.serverless.service.custom.loggroups.extra.forEach((name) => {
+        logGroupNames.push(`/aws/lambda/${name}`);
+      });
+    }
     return BbPromise.map(logGroupNames, (value) => this.removeLogGroup(value))
     .then(() => {
       this.serverless.cli.log('Finished');

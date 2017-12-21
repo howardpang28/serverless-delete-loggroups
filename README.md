@@ -16,6 +16,14 @@ plugins:
   - serverless-delete-loggroups
 ```
 
+Add additional extra log groups to delete
+
+```yaml
+custom:
+    loggroups:
+        extra: ["loggroup-name-1", "loggroup-name-2"]
+```
+
 ## Command
 LogGroups are deleted as follow:
 
